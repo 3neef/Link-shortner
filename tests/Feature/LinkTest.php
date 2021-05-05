@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Livewire\Livewire;
+use Illuminate\Support\Facades\DB;
 use Vinkla\Hashids\Facades\Hashids;
 
 class LinkTest extends TestCase
@@ -104,19 +105,19 @@ class LinkTest extends TestCase
     {
         $this->assertNotEquals($this->link->url, 'https://google.ca');
         $this->assertNotEquals($this->link->slug, 'test-slug');
-        $this->assertFalse($this->link->is_enabled);
+        $this->assertTrue(boolval($this->link->is_enabled));
 
         Livewire::actingAs($this->user)
             ->test('edit-link', ['link' => $this->link])
             ->set('url', 'https://google.ca')
             ->set('slug', 'test-slug')
-            ->set('is_enabled', true)
+            ->set('is_enabled', false)
             ->call('saveLink')
             ->assertRedirect(route('links'));
 
         $this->assertEquals($this->link->refresh()->url, 'https://google.ca');
         $this->assertEquals($this->link->refresh()->slug, 'test-slug');
-        $this->assertTrue($this->link->refresh()->is_enabled);
+        $this->assertFalse(boolval($this->link->refresh()->is_enabled));
     }
 
     /** @test */
@@ -128,6 +129,7 @@ class LinkTest extends TestCase
             ->test('edit-link', ['link' => $this->link])
             ->set('url', 'https://google.ca')
             ->set('slug', $this->link->slug)
+            ->set('is_enabled', true)
             ->call('saveLink')
             ->assertRedirect(route('links'));
 
