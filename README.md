@@ -1,8 +1,7 @@
 # :fire: Link Shortner with Laravel Breeze and Tailwind css
 
-## Security Vulnerabilities
+![HERE](https://user-images.githubusercontent.com/39404852/123497383-85b47280-d62d-11eb-921c-37a786078293.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
